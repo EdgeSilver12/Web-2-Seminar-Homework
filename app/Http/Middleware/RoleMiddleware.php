@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Closure;
@@ -8,14 +7,17 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     */
-    public function handle(Request $request, Closure $next, string $role): mixed
+    public function handle(Request $request, Closure $next, $role)
     {
-        if (!Auth::check() || Auth::user()->role !== $role) {
-            // If the user is not authenticated or their role doesn't match
-            return redirect('/unauthorized'); // Redirect to unauthorized page
+        if (!Auth::check()) {
+            return redirect('/login');
+        }
+
+        $user = Auth::user();
+        \Log::info('User role: ' . $user->role);  // Debugging
+
+        if ($user->role !== $role) {
+            return redirect('/unauthorized');
         }
 
         return $next($request);
