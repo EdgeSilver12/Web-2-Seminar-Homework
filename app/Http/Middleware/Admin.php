@@ -4,8 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 class Admin
 {
     /**
@@ -13,12 +12,12 @@ class Admin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next): \Illuminate\Http\RedirectResponse
     {
         if (!Auth::guard('admin')->check()) {
-            return redirect()->route('login_from')->with('error', 'please login first');
-
+            return redirect()->route('login_from')->with('error','please login first');
         }
+
         return $next($request);
     }
 }

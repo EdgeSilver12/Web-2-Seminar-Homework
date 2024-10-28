@@ -9,7 +9,7 @@
         Material Dashboard 3 by Creative Tim
     </title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
-    <link href="{{ asset(' panel/css/nucleo-icons.css') }}" rel="stylesheet" />
+    <link href="{{ asset('panel/css/nucleo-icons.css') }}" rel="stylesheet" />
     <link href="{{ asset('panel/css/nucleo-svg.css') }}" rel="stylesheet" />
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
@@ -74,7 +74,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link text-dark" href="login.html">
+                <a class="nav-link text-dark" href="{{ route('admin.login') }}">
                     <i class="material-symbols-rounded opacity-5">login</i>
                     <span class="nav-link-text ms-1">Sign In</span>
                 </a>
@@ -206,7 +206,7 @@
                         </ul>
                     </li>
                     <li class="nav-item d-flex align-items-center">
-                        <a href="login.html" class="nav-link text-body font-weight-bold px-0">
+                        <a href="{{ route('admin.login') }}" class="nav-link text-body font-weight-bold px-0">
                             <i class="material-symbols-rounded">account_circle</i>
                         </a>
                     </li>
@@ -216,6 +216,7 @@
     </nav>
     <!-- End Navbar -->
     @yield('admin')
+
 </main>
 <div class="fixed-plugin">
     <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">
@@ -291,11 +292,11 @@
         </div>
     </div>
 </div>
-<script src="{{ asset(' panel/js/core/popper.min.js') }}"></script>
+<script src="{{ asset('panel/js/core/popper.min.js') }}"></script>
 <script src="{{ asset('panel/js/core/bootstrap.min.js ') }}"></script>
-<script src="{{ asset(' panel/js/plugins/perfect-scrollbar.min.js') }}"></script>
-<script src="{{ asset(' panel/js/plugins/smooth-scrollbar.min.js') }}"></script>
-<script src="{{ asset(' panel/js/plugins/chartjs.min.js') }}"></script>
+<script src="{{ asset('panel/js/plugins/perfect-scrollbar.min.js') }}"></script>
+<script src="{{ asset('panel/js/plugins/smooth-scrollbar.min.js') }}"></script>
+<script src="{{ asset('panel/js/plugins/chartjs.min.js') }}"></script>
 <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
     new Chart(ctx, {
@@ -538,6 +539,6 @@
     }
 </script>
 <script async defer src="https://buttons.github.io/buttons.js"></script>
-<script src="{{ asset(' panel/js/material-dashboard.min.js?v=3.2.0 ') }}"></script>
+<script src="{{ asset('panel/js/material-dashboard.min.js?v=3.2.0') }}"></script>
 </body>
 </html>
