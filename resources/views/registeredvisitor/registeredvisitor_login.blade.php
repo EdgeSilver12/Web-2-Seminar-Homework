@@ -2,13 +2,13 @@
 <html lang="en">
 
 <head>
-{{--    {{ asset('') }}--}}
+    {{--    {{ asset('') }}--}}
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('panel/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('panel/img/favicon.png') }}">
     <title>
-        Material Dashboard 3 by Creative Tim
+        Registered User login
     </title>
     <!--     Fonts and icons     -->
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
@@ -32,7 +32,7 @@
             <nav class="navbar navbar-expand-lg blur border-radius-xl top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                 <div class="container-fluid ps-2 pe-0">
                     <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="index.html">
-                        Material Dashboard 3
+                        Registered Visitor Dashboard
                     </a>
                     <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon mt-2">
@@ -62,7 +62,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link me-2" href="{{ route('admin.login') }}">
+                                <a class="nav-link me-2" href="{{ route('registeredvisitor.login') }}">
                                     <i class="fas fa-key opacity-6 text-dark me-1"></i>
                                     Sign In
                                 </a>
@@ -121,8 +121,8 @@
                         @endif
 
                         <div class="card-body">
-                            <form  action="{{ route('admin.login')  }}" class="text-start" method="post">
-                            @csrf
+                            <form  action="{{ route('registeredvisitor.login')  }}" class="text-start" method="post">
+                                @csrf
                                 <div class="input-group input-group-outline my-3">
                                     <label class="form-label"></label>
                                     <input type="email" class="form-control" name="email" placeholder="Email Address">
@@ -140,7 +140,8 @@
                                 </div>
                                 <p class="mt-4 text-sm text-center">
                                     Don't have an account?
-                                    <a href="{{ route('admin.register')  }}" class="text-primary text-gradient font-weight-bold">Sign up</a>
+{{--                                    {{ route('admin.register')  }}--}}
+                                    <a href="{{ route('registeredvisitor.register') }}" class="text-primary text-gradient font-weight-bold">Sign up</a>
                                 </p>
                             </form>
                         </div>

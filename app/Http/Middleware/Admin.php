@@ -12,12 +12,11 @@ class Admin
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): \Illuminate\Http\RedirectResponse
+    public function handle(Request $request, Closure $next)
     {
         if (!Auth::guard('admin')->check()) {
             return redirect()->route('login_from')->with('error','please login first');
         }
-
         return $next($request);
     }
 }

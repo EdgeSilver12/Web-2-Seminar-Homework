@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Admin;
+use App\Models\RegisteredVisitor;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -14,10 +16,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        //Admin::factory(2)->create();
+//        RegisteredVisitor::factory(3)->create();
+//        $this->call([
+//            CountySeeder::class,
+//            TownSeeder::class,
+//            PopulationSeeder::class,
+//        ]);
     }
 }

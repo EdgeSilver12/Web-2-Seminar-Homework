@@ -1,21 +1,57 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SoapController;
+use App\Models\MenuItem;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\RegisteredVisitorController;
 
 
 //*************************Start Admin Route*************************
 Route::prefix('admin')->group(function () {
     Route::get('/login',[AdminController::class,'Index'])->name('login_from');
 
-    Route::get('/login/owner',[AdminController::class,'Login'])->name('admin.login');
+    Route::post('/login/owner',[AdminController::class,'Login'])->name('admin.login');
 
     Route::get('/dashboard',[AdminController::class,'Dashboard'])->name('admin.dashboard')->middleware('admin');
+    Route::get('/logout',[AdminController::class,'AdminLogout'])->name('admin.logout')->middleware('admin');
+    Route::get('/register',[AdminController::class,'AdminRegister'])->name('admin.register');
+    Route::post('/register/create',[AdminController::class,'AdminRegisterCreate'])->name('admin.register.create');
 });
 
 //*************************End Admin Route*************************
+
+
+//*************************Start registeredvisitor Route*************************
+Route::prefix('registeredvisitor')->group(function () {
+    Route::get('/login',[RegisteredVisitorController::class,'Index'])->name('registeredvisitor_login_from');
+    Route::get('/dashboard',[RegisteredVisitorController::class,'RegisteredVisitorDashboard'])->name('registeredvisitor.dashboard');
+
+    Route::post('/login/owner',[RegisteredVisitorController::class,'RegisteredVisitorLogin'])->name('registeredvisitor.login');
+//
+//
+    Route::get('/logout',[RegisteredVisitorController::class,'RegisteredVisitorLogout'])->name('registeredvisitor.logout')->middleware('registeredvisitor');
+    Route::get('/register',[RegisteredVisitorController::class,'RegisteredVisitorRegister'])->name('registeredvisitor.register');
+    Route::post('/register/create',[RegisteredVisitorController::class,'RegisteredVisitorRegisterCreate'])->name('registeredvisitor.register.create');
+});
+
+//*************************End registeredvisitor Route*************************
+
+
+//*************************End SOAP Route*************************
+
+//Route::post('/soap', [SoapController::class, 'handleSoapRequest']);
+
+Route::get('/soap/counties', [SoapController::class, 'getCounties']);
+Route::get('/soap/towns', [SoapController::class, 'getTowns']);
+Route::get('/soap/populations', [SoapController::class, 'getPopulations']);
+Route::get('/soap-view', function () {
+    return view('soap');
+});
+
+
+//*************************End SOAP Route*************************
 
 
 
@@ -24,7 +60,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $menuItems = MenuItem::whereNull('parent_id')->with('children')->get();
+    return view('dashboard', compact('menuItems'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

@@ -7,10 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class County extends Model
 {
-    protected $table = 'counties'; // Specify the table if needed
+    use HasFactory;
 
-    public function towns()
+    protected $table = 'counties';
+
+    // Define the relationship with Town
+    public function towns(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Town::class, 'countyid');
+        return $this->hasMany(Town::class, 'countyid', 'id');
     }
 }

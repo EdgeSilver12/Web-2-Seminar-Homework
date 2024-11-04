@@ -6,7 +6,7 @@
     <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('panel/img/apple-icon.png') }}">
     <link rel="icon" type="image/png" href="{{ asset('panel/img/favicon.png') }}">
     <title>
-        Material Dashboard 3 by Creative Tim
+        Registered Visitor
     </title>
     <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,900" />
     <link href="{{ asset('panel/css/nucleo-icons.css') }}" rel="stylesheet" />
@@ -98,7 +98,7 @@
     <!-- Navbar -->
 
     <!-- End Navbar -->
-    @yield('admin')
+    @yield('registeredvisitor')
 
 </main>
 <div class="fixed-plugin">
