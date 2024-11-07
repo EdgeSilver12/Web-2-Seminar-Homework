@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MNBController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SoapController;
 use App\Models\MenuItem;
@@ -39,7 +40,7 @@ Route::prefix('registeredvisitor')->group(function () {
 //*************************End registeredvisitor Route*************************
 
 
-//*************************End SOAP Route*************************
+//************************* SOAP Route*************************
 
 //Route::post('/soap', [SoapController::class, 'handleSoapRequest']);
 
@@ -52,7 +53,21 @@ Route::get('/soap-view', function () {
 
 
 //*************************End SOAP Route*************************
+//************************* MNB Route*************************
 
+
+Route::get('/exchange-rate', [MNBController::class, 'showDailyExchangeRate'])->name('exchange-rate');// the default one where we will see the list of the currencies and exchange rate called from the required Web Site
+Route::post('/exchange-rate-by-date', [MNBController::class, 'getExchangeRateByDate'])->name('exchange.rate.by.date');
+
+Route::post('/monthly-exchange-rate', [MNBController::class, 'showMonthlyExchangeRate'])->name('monthly.exchange.rate');
+
+
+
+
+
+
+
+//************************* END MNB Route*************************
 
 
 Route::get('/', function () {

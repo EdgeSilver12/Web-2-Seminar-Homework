@@ -39,6 +39,9 @@
             <div class="text-gray-900 dark:text-gray-100">
                 {{ __("You're logged in!") }}
             </div>
+
+            <!-- Button to view daily exchange rate -->
+
         </main>
     </div>
 </x-app-layout>
