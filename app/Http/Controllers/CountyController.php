@@ -2,56 +2,46 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-namespace App\Http\Controllers;
-
 use App\Models\County;
+use Illuminate\Http\Request;
 
 class CountyController extends Controller
 {
-    // Display all counties
+    // List all counties
     public function index()
     {
-        $counties = County::all();
-        return view('county.index', compact('counties'));
+        return response()->json(County::all());
     }
 
-    // Display a specific county by ID
+    // Show a specific county
     public function show($id)
     {
-        $county = County::findOrFail($id);
-        return view('county.show', compact('county'));
+        return response()->json(County::findOrFail($id));
     }
 
     // Store a new county
     public function store(Request $request)
     {
-        $request->validate([
-            'cname' => 'required|string|max:255',
+        $validated = $request->validate([
+            'cname' => 'required|string|max:255|unique:counties',
         ]);
 
-        County::create($request->all());
-        return redirect()->route('counties.index');
+        $county = County::create($validated);
+        return response()->json($county, 201);
     }
 
-    // Update an existing county
+    // Update a county
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'cname' => 'required|string|max:255',
-        ]);
-
         $county = County::findOrFail($id);
         $county->update($request->all());
-        return redirect()->route('counties.index');
+        return response()->json($county);
     }
 
     // Delete a county
     public function destroy($id)
     {
-        $county = County::findOrFail($id);
-        $county->delete();
-        return redirect()->route('counties.index');
+        County::findOrFail($id)->delete();
+        return response()->json(null, 204);
     }
 }

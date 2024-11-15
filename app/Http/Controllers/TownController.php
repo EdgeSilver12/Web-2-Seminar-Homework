@@ -9,15 +9,13 @@ class TownController extends Controller
     // Display all towns
     public function index()
     {
-        $towns = Town::all();
-        return view('town.index', compact('towns'));
+        return response()->json(Town::all());
     }
 
     // Display a specific town by ID
     public function show($id)
     {
-        $town = Town::findOrFail($id);
-        return view('town.show', compact('town'));
+        return response()->json(Town::findOrFail($id));
     }
 
     // Store a new town
@@ -30,30 +28,22 @@ class TownController extends Controller
             'countylevel' => 'required|boolean',
         ]);
 
-        Town::create($request->all());
-        return redirect()->route('towns.index');
+        $town = Town::create($request->all());
+        return response()->json($town, 201);  // Return newly created town with 201 status
     }
 
     // Update an existing town
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'tname' => 'required|string|max:255',
-            'countyid' => 'required|exists:counties,id',
-            'countyseat' => 'required|boolean',
-            'countylevel' => 'required|boolean',
-        ]);
-
         $town = Town::findOrFail($id);
         $town->update($request->all());
-        return redirect()->route('towns.index');
+        return response()->json($town);
     }
 
     // Delete a town
     public function destroy($id)
     {
-        $town = Town::findOrFail($id);
-        $town->delete();
-        return redirect()->route('towns.index');
+        Town::findOrFail($id)->delete();
+        return response()->json(null, 204);  // No content status
     }
 }

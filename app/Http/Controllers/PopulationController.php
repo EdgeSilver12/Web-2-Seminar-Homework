@@ -6,60 +6,42 @@ use Illuminate\Http\Request;
 
 class PopulationController extends Controller
 {
-    // Display all populations
+    // List all populations
     public function index()
     {
-        $populations = Population::all();
-        return view('population.index', compact('populations'));
+        return response()->json(Population::all());
     }
 
-    // Display a specific population by Town ID and Year
-    public function show($townid, $ryear)
+    // Show a specific population
+    public function show($id)
     {
-        $population = Population::where('townid', $townid)
-                                ->where('ryear', $ryear)
-                                ->firstOrFail();
-        return view('population.show', compact('population'));
+        return response()->json(Population::findOrFail($id));
     }
 
-    // Store a new population entry
+    // Store a new population
     public function store(Request $request)
     {
-        $request->validate([
-            'townid' => 'required|exists:towns,id',
-            'ryear' => 'required|integer',
-            'women' => 'required|integer',
-            'total' => 'required|integer',
+        $validated = $request->validate([
+            'population_count' => 'required|integer',
+            'town_id' => 'required|exists:towns,id',
         ]);
 
-        Population::create($request->all());
-        return redirect()->route('populations.index');
+        $population = Population::create($validated);
+        return response()->json($population, 201);
     }
 
-    // Update an existing population entry
-    public function update(Request $request, $townid, $ryear)
+    // Update a population
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'townid' => 'required|exists:towns,id',
-            'ryear' => 'required|integer',
-            'women' => 'required|integer',
-            'total' => 'required|integer',
-        ]);
-
-        $population = Population::where('townid', $townid)
-                                ->where('ryear', $ryear)
-                                ->firstOrFail();
+        $population = Population::findOrFail($id);
         $population->update($request->all());
-        return redirect()->route('populations.index');
+        return response()->json($population);
     }
 
-    // Delete a population entry
-    public function destroy($townid, $ryear)
+    // Delete a population
+    public function destroy($id)
     {
-        $population = Population::where('townid', $townid)
-                                ->where('ryear', $ryear)
-                                ->firstOrFail();
-        $population->delete();
-        return redirect()->route('populations.index');
+        Population::findOrFail($id)->delete();
+        return response()->json(null, 204);
     }
 }

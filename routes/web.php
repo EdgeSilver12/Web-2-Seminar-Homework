@@ -1,8 +1,11 @@
 <?php
 
+use App\Http\Controllers\CountyController;
 use App\Http\Controllers\MNBController;
+use App\Http\Controllers\PopulationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SoapController;
+use App\Http\Controllers\TownController;
 use App\Models\MenuItem;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
@@ -69,6 +72,14 @@ Route::post('/monthly-exchange-rate', [MNBController::class, 'showMonthlyExchang
 
 //************************* END MNB Route*************************
 
+//************************* Restful*************************
+Route::prefix('api')->group(function () {
+    Route::resource('towns', TownController::class)->except(['create', 'edit']);
+    Route::resource('counties', CountyController::class)->except(['create', 'edit']);
+    Route::resource('populations', PopulationController::class)->except(['create', 'edit']);
+});
+
+//*************************End Restful*************************
 
 Route::get('/', function () {
     return view('welcome');
